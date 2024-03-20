@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://enlr0p04f16a"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_vejuf"]
+[ext_resource type="Texture2D" uid="uid://biff0ag0uxtum" path="res://assets/textures/player_ship.png" id="2_4qpw0"]
+[ext_resource type="AudioStream" uid="uid://bbmej24371w1u" path="res://assets/audio/sfx_laser2.wav" id="3_qlbab"]
+
+[sub_resource type="Gradient" id="Gradient_xn13x"]
+offsets = PackedFloat32Array(0, 0.47541, 0.983607)
+colors = PackedColorArray(0.815686, 0.65098, 0, 0, 0.831373, 0.392157, 0, 1, 0.746503, 0.12597, 1.92523e-07, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7pxaw"]
+gradient = SubResource("Gradient_xn13x")
+
+[sub_resource type="Curve" id="Curve_uuunx"]
+_data = [Vector2(0, 0.501859), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_48ng1"]
+curve = SubResource("Curve_uuunx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pg1j1"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 15, 1)
+spread = 30.0
+initial_velocity_min = -200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_48ng1")
+color_ramp = SubResource("GradientTexture1D_7pxaw")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3u53u"]
+radius = 28.0
+height = 102.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_vejuf")
+
+[node name="FlameParticleEffect" type="GPUParticles2D" parent="."]
+position = Vector2(-37, 0)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_pg1j1")
+lifetime = 0.3
+
+[node name="ShipImage" type="Sprite2D" parent="."]
+rotation = 1.56606
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_4qpw0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_3u53u")
+
+[node name="RocketShot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_qlbab")

@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://spsf1dl1w1h6"]
+
+[ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_fdctp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v83eh"]
+bg_color = Color(0.694118, 0.152941, 0.0862745, 0.552941)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_m8gke"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_040la"]
+font_size = 48
+font_color = Color(0, 0.67451, 0.678431, 1)
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fdctp")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 109.0
+offset_top = 60.0
+offset_right = -84.0
+offset_bottom = -89.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v83eh")
+
+[node name="GameOver" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 121.0
+offset_right = 739.0
+offset_bottom = 209.0
+text = "GAME OVER
+"
+label_settings = SubResource("LabelSettings_m8gke")
+
+[node name="Score" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 226.0
+offset_right = 685.0
+offset_bottom = 293.0
+text = "SCORE:9999
+"
+label_settings = SubResource("LabelSettings_040la")
+
+[node name="RetryButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 421.0
+offset_top = 321.0
+offset_right = 684.0
+offset_bottom = 401.0
+theme_override_font_sizes/font_size = 44
+text = "Retry"
+
+[connection signal="pressed" from="Panel/RetryButton" to="." method="_on_retry_button_pressed"]
